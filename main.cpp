@@ -90,6 +90,7 @@ int main(int argc, char *argv[]) {
     const auto product_device = config.find("PRODUCT_DEVICE");
     const auto product_name = config.find("PRODUCT_NAME");
     const auto product_model = config.find("PRODUCT_MODEL");
+    const auto product_brand = config.find("PRODUCT_BRAND");
 
     if (is_init_stage && build_fingerprint != config.end()) {
         property_override(property_list("ro.", "build.fingerprint"),
@@ -139,6 +140,10 @@ int main(int argc, char *argv[]) {
     if (is_init_stage && manufacturer_name != config.end()) {
         property_override(property_list("ro.product.", "manufacturer"),
                 manufacturer_name->second.c_str());
+    }
+
+    if (is_init_stage && product_brand != config.end()) {
+        property_override(property_list("ro.product.", "brand"), product_brand->second.c_str());
     }
 
     if (is_init_stage && product_name != config.end()) {
