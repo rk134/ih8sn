@@ -41,7 +41,7 @@ Check the "Releases" section on the right. Make sure to download correct zip for
 - x86_64 = x86_64
 
 ## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model>
-- If your device isn't available in the list then you can either use default config by flashing exisiting ih8sn flashable zip or follow below steps to create ih8sn config for your device.
+- If your device isn't available in the list then follow below steps to create ih8sn config for your device.
 
 ### Configure ih8sn.conf for your device
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
