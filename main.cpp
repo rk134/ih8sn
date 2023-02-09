@@ -87,7 +87,9 @@ int main(int argc, char *argv[]) {
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
     const auto product_first_api_level = config.find("PRODUCT_FIRST_API_LEVEL");
+    const auto product_device = config.find("PRODUCT_DEVICE");
     const auto product_name = config.find("PRODUCT_NAME");
+    const auto product_model = config.find("PRODUCT_MODEL");
 
     if (is_init_stage && build_fingerprint != config.end()) {
         property_override(property_list("ro.", "build.fingerprint"),
@@ -141,6 +143,14 @@ int main(int argc, char *argv[]) {
 
     if (is_init_stage && product_name != config.end()) {
         property_override(property_list("ro.product.", "name"), product_name->second.c_str());
+    }
+
+    if (is_init_stage && product_device != config.end()) {
+        property_override(property_list("ro.product.", "device"), product_device->second.c_str());
+    }
+
+    if (is_init_stage && product_model != config.end()) {
+        property_override(property_list("ro.product.", "model"), product_model->second.c_str());
     }
 
     if (is_boot_completed_stage) {
