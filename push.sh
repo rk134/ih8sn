@@ -30,10 +30,10 @@ MODEL=$(adb shell getprop ro.product.model)
 SERIALNO=$(adb shell getprop ro.boot.serialno)
 PRODUCT=$(adb shell getprop ro.build.product)
 
-if [[ -f "system/etc/ih8sn.conf.${SERIALNO}" ]]; then
-    adb wait-for-device push system/etc/ih8sn.conf.${SERIALNO} /system/etc/
-elif [[ -f "system/etc/ih8sn.conf.${MODEL}" ]]; then
+if [[ -f "system/etc/ih8sn.conf.${MODEL}" ]]; then
     adb wait-for-device push system/etc/ih8sn.conf.${MODEL} /system/etc/
+elif [[ -f "system/etc/ih8sn.conf.${SERIALNO}" ]]; then
+    adb wait-for-device push system/etc/ih8sn.conf.${SERIALNO} /system/etc/
 elif [[ -f "system/etc/ih8sn.conf.${PRODUCT}" ]]; then
     adb wait-for-device push system/etc/ih8sn.conf.${PRODUCT} /system/etc/
 else
