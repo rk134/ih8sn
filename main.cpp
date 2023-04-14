@@ -167,6 +167,14 @@ int main(int argc, char *argv[]) {
         if (product != config.end()) {
             std::string model = product->second + " ";
             property_override(property_list("ro.product.", "model"), model.c_str());
+        } else {
+            auto pi = (prop_info *) __system_property_find("ro.product.model");
+            if (pi != nullptr) {
+                char value[PROP_VALUE_MAX];
+                __system_property_read(pi, nullptr, value);
+                strcat(value, " ");
+                property_override(property_list("ro.product.", "model"), value);
+            }
         }
     } else if (is_init_stage && product_model != config.end()) {
         property_override(property_list("ro.product.", "model"), product_model->second.c_str());
