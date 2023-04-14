@@ -87,6 +87,7 @@ int main(int argc, char *argv[]) {
     const auto build_version_release = config.find("BUILD_VERSION_RELEASE");
     const auto build_version_release_or_codename = config.find("BUILD_VERSION_RELEASE_OR_CODENAME");
     const auto debuggable = config.find("DEBUGGABLE");
+    const auto force_basic_attestation = config.find("FORCE_BASIC_ATTESTATION");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
     const auto product_first_api_level = config.find("PRODUCT_FIRST_API_LEVEL");
     const auto product_device = config.find("PRODUCT_DEVICE");
@@ -161,7 +162,13 @@ int main(int argc, char *argv[]) {
         property_override(property_list("ro.product.", "device"), product_device->second.c_str());
     }
 
-    if (is_init_stage && product_model != config.end()) {
+    if (is_init_stage && force_basic_attestation != config.end() && force_basic_attestation->second == "1") {
+        const auto& product = product_model != config.end() ? product_model : product_device;
+        if (product != config.end()) {
+            std::string model = product->second + " ";
+            property_override(property_list("ro.product.", "model"), model.c_str());
+        }
+    } else if (is_init_stage && product_model != config.end()) {
         property_override(property_list("ro.product.", "model"), product_model->second.c_str());
     }
 
