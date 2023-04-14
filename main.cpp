@@ -21,10 +21,30 @@ void property_override(const std::vector<std::string> &props, char const value[]
     }
 }
 
+std::string get_config_filename() {
+    std::string filename = "/system/etc/ih8sn.conf";
+    const char* prop_names[] = {"ro.build.product", "ro.build.model", "ro.boot.serialno"};
+
+    for (auto& prop_name : prop_names) {
+        auto prop = (prop_info*) __system_property_find(prop_name);
+        if (prop != nullptr) {
+            char prop_value[PROP_VALUE_MAX];
+            __system_property_read(prop, nullptr, prop_value);
+            std::string prop_filename = filename + "." + prop_value;
+            if (std::ifstream(prop_filename)) {
+                filename = prop_filename;
+                break;
+            }
+        }
+    }
+
+    return filename;
+}
+
 std::map<std::string, std::string> load_config() {
     std::map<std::string, std::string> config;
 
-    if (std::ifstream file("/system/etc/ih8sn.conf"); file.good()) {
+    if (std::ifstream file(get_config_filename()); file.good()) {
         std::string line;
 
         while (std::getline(file, line)) {

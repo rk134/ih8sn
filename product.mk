@@ -8,7 +8,7 @@ PRODUCT_PACKAGES += ih8sn
 
 ifneq ("$(wildcard ih8sn/system/etc/ih8sn.conf.$(subst lineage_,,$(TARGET_PRODUCT)))","")
 PRODUCT_COPY_FILES += \
-    ih8sn/system/etc/ih8sn.conf.$(subst lineage_,,$(TARGET_PRODUCT)):$(TARGET_COPY_OUT_SYSTEM)/etc/ih8sn.conf
+    ih8sn/system/etc/ih8sn.conf.$(subst lineage_,,$(TARGET_PRODUCT)):$(TARGET_COPY_OUT_SYSTEM)/etc/ih8sn.conf.$(subst lineage_,,$(TARGET_PRODUCT))
 else
 PRODUCT_COPY_FILES += \
     ih8sn/system/etc/ih8sn.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/ih8sn.conf
