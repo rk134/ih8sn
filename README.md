@@ -1,7 +1,7 @@
 # ih8sn
 
 - ih8sn allows you to modify system properties at runtime.
--  It can be installed with ADB root or recovery.
+- It can be installed with ADB root or recovery.
 - If you want to add your device, do a PR with your device config.
 
 ## Disclaimer:
@@ -37,8 +37,6 @@ Check the "Releases" section on the right. Make sure to download correct zip for
 
 - aarch64 = arm64
 - armv7a = arm
-- i686 = x86
-- x86_64 = x86_64
 
 ## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model>
 - If your device isn't available in the list then follow below steps to create ih8sn config for your device.
