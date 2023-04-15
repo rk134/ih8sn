@@ -45,9 +45,15 @@ adb wait-for-device push $CONFIG /system/etc/
 
 sdk_version=$(adb shell getprop ro.build.version.sdk)
 libkeystore="libkeystore-attestation-application-id.so"
+arch=$(adb shell getprop ro.product.cpu.abi | grep -o -E 'arm64-v8a|armeabi-v7a')
+if [ "$arch" = "arm64-v8a" ]; then
+    libdir=lib64
+else
+    libdir=lib
+fi
 
-if [[ -f "system/lib64/$sdk_version/$libkeystore" ]] && grep -q '^FORCE_BASIC_ATTESTATION=1$' "$CONFIG"; then
-    adb wait-for-device push "system/lib64/$sdk_version/$libkeystore" /system/lib64/
+if [[ -f "system/$libdir/$sdk_version/$libkeystore" ]] && grep -q '^FORCE_BASIC_ATTESTATION=1$' "$CONFIG"; then
+    adb wait-for-device push "system/$libdir/$sdk_version/$libkeystore" /system/$libdir/
 fi
 
 if [[ "${REBOOT}" = "1" ]]; then
