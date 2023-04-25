@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-N920C
+BUILD_FINGERPRINT=samsung/nobleltejv/noblelte:7.0/NRD90M/N920CXXU3CQH6:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

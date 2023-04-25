@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-G925F
+BUILD_FINGERPRINT=samsung/zeroltexx/zerolte:7.0/NRD90M/G925FXXS5EQL1:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

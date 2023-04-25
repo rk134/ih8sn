@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Moto Z2 Play
+BUILD_FINGERPRINT=motorola/albus/albus:8.0.0/OPS27.76-12-25/26:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

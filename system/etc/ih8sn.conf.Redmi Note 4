@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Redmi Note 4
+BUILD_FINGERPRINT=Xiaomi/nikel/nikel:6.0/MRA58K/V9.2.2.0.MBFMIEK:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

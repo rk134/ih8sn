@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-J510FN
+BUILD_FINGERPRINT=samsung/j5xnltexx/j5xnlte:7.1.1/NMF26X/J510FNXXS2BRA2:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

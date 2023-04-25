@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Nexus 6
+BUILD_FINGERPRINT=google/shamu/shamu:5.0/LRX21O/1570415:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

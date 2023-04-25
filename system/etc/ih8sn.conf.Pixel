@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Pixel
+BUILD_FINGERPRINT=google/sailfish/sailfish:7.1/NDE63V/3389651:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-G965F
+BUILD_FINGERPRINT=samsung/star2ltexx/star2lte:8.0.0/R16NW/G965FXXU1ARCC:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

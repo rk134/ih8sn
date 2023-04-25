@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-P600
+BUILD_FINGERPRINT=samsung/lt03wifixx/lt03wifi:5.1.1/LMY47X/P600XXUDOJ3:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

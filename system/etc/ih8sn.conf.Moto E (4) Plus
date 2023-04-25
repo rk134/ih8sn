@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Moto E (4) Plus
+BUILD_FINGERPRINT=motorola/nicklaus_fn/nicklaus_fn:7.1.1/NMA26.42-156/183:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

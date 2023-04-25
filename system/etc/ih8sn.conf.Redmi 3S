@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Redmi 3S
+BUILD_FINGERPRINT=Xiaomi/land/land:6.0.1/MMB29M/V9.5.1.0.MALMIFA:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

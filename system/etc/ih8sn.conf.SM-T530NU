@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-T530NU
+BUILD_FINGERPRINT=samsung/matissewifiue/matissewifiue:5.0.2/LRX22G/T530NUUEU1BQC1:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

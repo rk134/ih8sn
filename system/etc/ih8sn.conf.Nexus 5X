@@ -1,0 +1,5 @@
+PRODUCT_MODEL=Nexus 5X
+BUILD_FINGERPRINT=google/bullhead/bullhead:6.0/MDB08L/2343525:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0

@@ -1,0 +1,5 @@
+PRODUCT_MODEL=SM-G610F
+BUILD_FINGERPRINT=samsung/on7xeltedd/on7xelte:6.0.1/MMB29K/G610FDDU1AQG2:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
