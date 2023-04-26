@@ -26,9 +26,9 @@ adb wait-for-device push system/addon.d/60-ih8sn.sh /system/addon.d/
 adb wait-for-device push system/bin/ih8sn /system/bin/
 adb wait-for-device push system/etc/init/ih8sn.rc /system/etc/init/
 
-MODEL=$(adb shell getprop ro.product.model)
-SERIALNO=$(adb shell getprop ro.boot.serialno)
-PRODUCT=$(adb shell getprop ro.build.product)
+MODEL=$(adb shell getprop ro.product.model | tr ' ' '_' | sed 's/_*$//')
+SERIALNO=$(adb shell getprop ro.boot.serialno | tr ' ' '_' | sed 's/_*$//')
+PRODUCT=$(adb shell getprop ro.build.product | tr ' ' '_' | sed 's/_*$//')
 
 DEFAULT_CONFIG=system/etc/ih8sn.conf
 if [[ -f "$DEFAULT_CONFIG.${MODEL}" ]]; then

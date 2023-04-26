@@ -30,14 +30,30 @@ std::string get_config_filename() {
         if (prop != nullptr) {
             char prop_value[PROP_VALUE_MAX];
             __system_property_read(prop, nullptr, prop_value);
+
+            // Replace spaces with underscores in prop_value, except at the end
+            for (size_t i = 0; i < strlen(prop_value) - 1; ++i) {
+                if (prop_value[i] == ' ' && prop_value[i + 1] != ' ') {
+                    prop_value[i] = '_';
+                }
+            }
+
+            // Check for file with underscores in prop_value
             std::string prop_filename = filename + "." + prop_value;
             if (std::ifstream(prop_filename)) {
-                filename = prop_filename;
-                break;
+                return prop_filename;
+            }
+
+            // Check for file with spaces in prop_value
+            prop_filename = filename + "." + prop_value;
+            std::replace(prop_filename.begin(), prop_filename.end(), '_', ' ');
+            if (std::ifstream(prop_filename)) {
+                return prop_filename;
             }
         }
     }
 
+    // If no file with spaces or underscores was found, return the original filename
     return filename;
 }
 
