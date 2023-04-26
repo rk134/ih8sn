@@ -41,7 +41,7 @@ else
     CONFIG=$DEFAULT_CONFIG
 fi
 
-adb wait-for-device push $CONFIG /system/etc/
+adb wait-for-device push "$CONFIG" /system/etc/ih8sn.conf
 
 sdk_version=$(adb shell getprop ro.build.version.sdk)
 libkeystore="libkeystore-attestation-application-id.so"
