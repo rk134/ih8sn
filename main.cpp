@@ -5,30 +5,52 @@
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
+// Override the value of a system property with a new value
+// Params:
+// - prop: The name of the system property to override
+// - value: The new value for the system property
+// - add: Flag to indicate whether to add the property if it doesn't exist (default: false)
 void property_override(char const prop[], char const value[], bool add = false) {
+    // Find the system property by name
     auto pi = (prop_info *) __system_property_find(prop);
 
     if (pi != nullptr) {
+        // If the property already exists, update its value with the new value
         __system_property_update(pi, value, strlen(value));
     } else if (add) {
+        // If the property doesn't exist and add flag is true, add the property with the new value
         __system_property_add(prop, strlen(prop), value, strlen(value));
     }
 }
 
+// Override the value of multiple system properties with the same new value
+// Params:
+// - props: A vector of system property names to override
+// - value: The new value for the system properties
+// - add: Flag to indicate whether to add the properties if they don't exist (default: false)
 void property_override(const std::vector<std::string> &props, char const value[], bool add = false) {
     for (const auto &prop : props) {
+        // Call the single-property override function for each property in the vector
         property_override(prop.c_str(), value, add);
     }
 }
 
+// Get the configuration file name based on system properties
+// Returns: A std::string containing the configuration file name
 std::string get_config_filename() {
+    // Default configuration file name
     std::string filename = "/system/etc/ih8sn.conf";
+    // Array of system property names to check
     const char* prop_names[] = {"ro.build.product", "ro.build.model", "ro.boot.serialno"};
 
+    // Iterate through each system property name in the array
     for (auto& prop_name : prop_names) {
+        // Find the system property by name
         auto prop = (prop_info*) __system_property_find(prop_name);
         if (prop != nullptr) {
+            // Buffer to store the system property value
             char prop_value[PROP_VALUE_MAX];
+            // Read the system property value
             __system_property_read(prop, nullptr, prop_value);
 
             // Replace spaces with underscores in prop_value, except at the end
@@ -39,15 +61,22 @@ std::string get_config_filename() {
             }
 
             // Check for file with underscores in prop_value
+            // Append prop_value to filename with underscores
             std::string prop_filename = filename + "." + prop_value;
+            // Check if the file with prop_filename exists
             if (std::ifstream(prop_filename)) {
+                // If found, return the file name with underscores
                 return prop_filename;
             }
 
             // Check for file with spaces in prop_value
+            // Reset prop_filename
             prop_filename = filename + "." + prop_value;
+            // Replace underscores with spaces
             std::replace(prop_filename.begin(), prop_filename.end(), '_', ' ');
+            // Check if the file with prop_filename exists
             if (std::ifstream(prop_filename)) {
+                // If found, return the file name with spaces
                 return prop_filename;
             }
         }
@@ -57,29 +86,46 @@ std::string get_config_filename() {
     return filename;
 }
 
+// Load configuration data from a file into a std::map
+// Returns: A std::map containing the configuration data as key-value pairs
 std::map<std::string, std::string> load_config() {
+    // Create a std::map to store the configuration data
     std::map<std::string, std::string> config;
 
+    // Open the configuration file using std::ifstream, and check if it is in good state
     if (std::ifstream file(get_config_filename()); file.good()) {
+        // Variable to store each line read from the file
         std::string line;
 
+        // Read each line from the file using std::getline()
         while (std::getline(file, line)) {
+            // Skip lines that start with '#' as they are considered comments
             if (line[0] == '#') {
                 continue;
             }
 
+            // If a line contains a '=' character, parse it as a key-value pair
             if (const auto separator = line.find('='); separator != std::string::npos) {
+                // Extract the key and value substrings and store them in the std::map
                 config[line.substr(0, separator)] = line.substr(separator + 1);
             }
         }
     }
 
+    // Return the std::map containing the configuration data
     return config;
 }
 
+// Generate a list of property names based on prefix and suffix
+// Params:
+// - prefix: A const reference to a std::string representing the prefix to be added to property names
+// - suffix: A const reference to a std::string representing the suffix to be added to property names
+// Returns: A std::vector<std::string> containing the generated property names
 std::vector<std::string> property_list(const std::string &prefix, const std::string &suffix) {
+    // Vector to store the generated property names
     std::vector<std::string> props;
 
+    // Iterate through a list of parts to be appended to the prefix
     for (const std::string &part : {
         "",
         "boot.",
@@ -95,9 +141,11 @@ std::vector<std::string> property_list(const std::string &prefix, const std::str
         "vendor.",
         "vendor.boot.",
     }) {
+        // Concatenate prefix, part, and suffix, and add the resulting property name to the vector
         props.emplace_back(prefix + part + suffix);
     }
 
+    // Return the vector of generated property names
     return props;
 }
 

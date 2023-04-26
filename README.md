@@ -45,6 +45,7 @@ Check the "Releases" section on the right. Make sure to download correct zip for
 
 ## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model>
 - If your device isn't available in the list then follow below steps to create ih8sn config for your device.
+- If your model has spaces, then it must be replaced with underscore.
 
 ### Configure ih8sn.conf for your device
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
@@ -117,4 +118,4 @@ adb sideload ih8sn-uninstaller.zip
 ## 4: Reboot your device 
 
 ## Notes: 
-- Spoofing staying in ota updates if the rom supports it.
+- Spoofing stays in ota updates (except libkeystore-attestation-application-id.so) if the rom supports it.
