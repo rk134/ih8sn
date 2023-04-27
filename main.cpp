@@ -1,5 +1,6 @@
 #include <fstream>
 #include <map>
+#include <sstream>
 #include <vector>
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
@@ -163,6 +164,36 @@ std::vector<std::string> property_list(const std::string &prefix,
   return props;
 }
 
+// Takes an input string and returns a formatted description string
+std::string getFormattedDescription(std::string inputStr) {
+  // Split input string by '/' and ':' delimiters and store in a vector
+  std::stringstream ss(inputStr);
+  std::string token;
+  std::vector<std::string> tokens;
+  while (std::getline(ss, token, '/')) {
+    std::stringstream ss2(token);
+    std::string subtoken;
+    while (std::getline(ss2, subtoken, ':')) {
+      tokens.push_back(subtoken);
+    }
+  }
+
+  // Extract required elements from vector
+  std::string device = tokens[1];
+  std::string androidVersion = tokens[3];
+  std::string buildId = tokens[4];
+  std::string buildNumber = tokens[5];
+  std::string buildType = tokens[6];
+  std::string buildKey = tokens[7];
+
+  // Format output string
+  std::string outputStr = device + "-" + buildType + " " + androidVersion +
+                          " " + buildId + " " + buildNumber + " " + buildKey;
+
+  // Return formatted output string
+  return outputStr;
+}
+
 int main(int argc, char *argv[]) {
   if (__system_properties_init()) {
     return -1;
@@ -215,6 +246,10 @@ int main(int argc, char *argv[]) {
     if (build_description != config.end()) {
       property_override("ro.build.description",
                         build_description->second.c_str());
+    } else if (build_fingerprint != config.end()) {
+      property_override(
+          "ro.build.description",
+          getFormattedDescription(build_fingerprint->second).c_str());
     }
 
     if (debuggable != config.end()) {
