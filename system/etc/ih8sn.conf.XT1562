@@ -1,5 +1,5 @@
-PRODUCT_MODEL=XT1562
 BUILD_FINGERPRINT=motorola/lux_retasia_ds/lux_uds:7.1.1/NPD26.48-24-1/1:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=XT1562

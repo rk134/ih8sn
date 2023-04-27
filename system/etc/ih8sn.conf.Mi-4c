@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Mi-4c
 BUILD_FINGERPRINT=Xiaomi/libra/libra:7.0/NRD90M/V9.6.2.0.NXKCNFD:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Mi-4c

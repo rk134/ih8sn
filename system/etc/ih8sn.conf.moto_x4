@@ -1,5 +1,5 @@
-PRODUCT_MODEL=moto x4
 BUILD_FINGERPRINT=motorola/payton/payton:8.0.0/OPWS27.57-25-6-10/12:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=moto x4

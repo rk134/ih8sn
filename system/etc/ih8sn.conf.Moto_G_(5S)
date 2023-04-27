@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Moto G (5S)
 BUILD_FINGERPRINT=motorola/montana/montana:7.1.1/NPPS26.102-49-8/6:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Moto G (5S)

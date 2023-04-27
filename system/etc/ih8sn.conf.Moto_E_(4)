@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Moto E (4)
 BUILD_FINGERPRINT=motorola/sperry_sprint/sperry:7.1.1/NCQ26.69-64/68:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Moto E (4)

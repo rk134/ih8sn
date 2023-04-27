@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Pixel 2
 BUILD_FINGERPRINT=google/walleye/walleye:8.0.0/OPD1.170816.025/4424668:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Pixel 2

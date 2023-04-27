@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Pixel XL
 BUILD_FINGERPRINT=google/marlin/marlin:7.1/NDE63V/3389651:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Pixel XL

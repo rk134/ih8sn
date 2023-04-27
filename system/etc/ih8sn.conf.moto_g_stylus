@@ -1,6 +1,6 @@
-PRODUCT_MODEL=moto g stylus
 BUILD_FINGERPRINT=motorola/sofiap_retail/sofiap:10/QPRS30.80-58-7-5-1-2/1ec95d:user/release-keys
 BUILD_SECURITY_PATCH_DATE=2021-01-01
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=moto g stylus

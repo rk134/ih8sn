@@ -1,5 +1,5 @@
-PRODUCT_MODEL=Redmi Note 5
 BUILD_FINGERPRINT=xiaomi/vince/vince:7.1.2/N2G47H/V9.5.4.0.NEGMIFA:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
+PRODUCT_MODEL=Redmi Note 5
