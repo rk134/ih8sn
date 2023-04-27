@@ -280,16 +280,23 @@ int main(int argc, char *argv[]) {
         force_basic_attestation->second == "1") {
       const auto &product =
           product_model != config.end() ? product_model : product_device;
-      if (product != config.end()) {
-        std::string model = product->second + " ";
-        property_override(property_list("ro.product.", "model"), model.c_str());
-      } else {
-        auto pi = (prop_info *)__system_property_find("ro.product.model");
-        if (pi != nullptr) {
-          char value[PROP_VALUE_MAX];
-          __system_property_read(pi, nullptr, value);
-          strcat(value, " ");
-          property_override(property_list("ro.product.", "model"), value);
+      auto pi = (prop_info *)__system_property_find("ro.build.version.release");
+      if (pi != nullptr) {
+        char android_release[PROP_VALUE_MAX];
+        __system_property_read(pi, nullptr, android_release);
+        int android_version = std::atoi(android_release);
+        if (product != config.end() && android_version >= 12) {
+          std::string model = product->second + " ";
+          property_override(property_list("ro.product.", "model"),
+                            model.c_str());
+        } else if (android_version > 12) {
+          auto pi = (prop_info *)__system_property_find("ro.product.model");
+          if (pi != nullptr) {
+            char value[PROP_VALUE_MAX];
+            __system_property_read(pi, nullptr, value);
+            strcat(value, " ");
+            property_override(property_list("ro.product.", "model"), value);
+          }
         }
       }
     } else if (product_model != config.end()) {
@@ -325,6 +332,18 @@ int main(int argc, char *argv[]) {
     if (product_first_api_level != config.end()) {
       property_override("ro.product.first_api_level",
                         product_first_api_level->second.c_str());
+    } else if (force_basic_attestation != config.end() &&
+               force_basic_attestation->second == "1") {
+      auto pi =
+          (prop_info *)__system_property_find("ro.product.first_api_level");
+      if (pi != nullptr) {
+        char first_api_level[PROP_VALUE_MAX];
+        __system_property_read(pi, nullptr, first_api_level);
+        int api_level = std::atoi(first_api_level);
+        if (api_level >= 33) {
+          property_override("ro.product.first_api_level", "32");
+        }
+      }
     }
 
     property_override("ro.boot.flash.locked", "1");
