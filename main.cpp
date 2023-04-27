@@ -142,6 +142,7 @@ std::vector<std::string> property_list(const std::string &prefix,
   // Iterate through a list of parts to be appended to the prefix
   for (const std::string &part : {
            "",
+           "board.",
            "boot.",
            "bootimage.",
            "odm_dlkm.",
@@ -330,7 +331,9 @@ int main(int argc, char *argv[]) {
     }
 
     if (product_first_api_level != config.end()) {
-      property_override("ro.product.first_api_level",
+      property_override(property_list("ro.", "first_api_level"),
+                        product_first_api_level->second.c_str());
+      property_override("ro.vendor.api_level",
                         product_first_api_level->second.c_str());
     } else if (force_basic_attestation != config.end() &&
                force_basic_attestation->second == "1") {
@@ -341,7 +344,8 @@ int main(int argc, char *argv[]) {
         __system_property_read(pi, nullptr, first_api_level);
         int api_level = std::atoi(first_api_level);
         if (api_level >= 33) {
-          property_override("ro.product.first_api_level", "32");
+          property_override(property_list("ro.", "first_api_level"), "32");
+          property_override("ro.vendor.api_level", "32");
         }
       }
     }
