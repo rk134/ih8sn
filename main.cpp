@@ -330,6 +330,15 @@ int main(int argc, char *argv[]) {
     if (build_security_patch_date != config.end()) {
       property_override("ro.build.version.security_patch",
                         build_security_patch_date->second.c_str());
+    } else if (build_fingerprint == config.end()) {
+      auto pi =
+          (prop_info *)__system_property_find("ro.vendor.build.security_patch");
+      if (pi != nullptr) {
+        char vendor_security_patch[PROP_VALUE_MAX];
+        __system_property_read(pi, nullptr, vendor_security_patch);
+        property_override("ro.build.version.security_patch",
+                          vendor_security_patch);
+      }
     }
 
     if (vendor_security_patch_date != config.end()) {
