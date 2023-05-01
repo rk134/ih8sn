@@ -20,7 +20,7 @@ fi
 
 mkdir -p $bin_out $folder/tmp/$script_dir
 
-ndk_version=r25b
+ndk_version=r25c
 
 if [ ! -d android-ndk-$ndk_version ]; then
     if [ ! -f android-ndk-$ndk_version-linux.zip ]; then
