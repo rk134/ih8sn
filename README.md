@@ -49,7 +49,7 @@ Check the "Releases" section on the right. Make sure to download correct zip for
 
 ### Configure ih8sn.conf for your device
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
-Example :
+Example:
 
 ```
 BUILD_DESCRIPTION=OnePlus7Pro-user 10 QKQ1.190716.003 1910071200 release-keys
@@ -70,6 +70,15 @@ PRODUCT_NAME=OnePlus7Pro
 VENDOR_SECURITY_PATCH_DATE=2019-09-05
 ```
 
+Default values:
+```
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
+FORCE_BASIC_ATTESTATION=1
+```
+
+- Default values will be set even if its not set. or its commented in the config, Set it if you want to override that.
 - Note that if you set FORCE_BASIC_ATTESTATION=1, this will also copy patched `libkeystore-attestation-application-id.so` to your system. Patch can be found [here](patches)
 
 Notes:
