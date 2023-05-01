@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=lge/lucye_global_com/lucye:7.0/NRD90U/171732341982c:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=LG-H870

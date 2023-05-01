@@ -237,11 +237,15 @@ int main(int argc, char *argv[]) {
     if (build_tags != config.end()) {
       property_override(property_list("ro.", "build.tags"),
                         build_tags->second.c_str());
+    } else {
+      property_override(property_list("ro.", "build.tags"), "release-keys");
     }
 
     if (build_type != config.end()) {
       property_override(property_list("ro.", "build.type"),
                         build_type->second.c_str());
+    } else {
+      property_override(property_list("ro.", "build.type"), "user");
     }
 
     if (build_description != config.end()) {
@@ -255,6 +259,8 @@ int main(int argc, char *argv[]) {
 
     if (debuggable != config.end()) {
       property_override("ro.debuggable", debuggable->second.c_str());
+    } else {
+      property_override("ro.debuggable", "0");
     }
 
     if (manufacturer_name != config.end()) {
@@ -277,8 +283,9 @@ int main(int argc, char *argv[]) {
                         product_device->second.c_str());
     }
 
-    if (force_basic_attestation != config.end() &&
-        force_basic_attestation->second == "1") {
+    if (force_basic_attestation == config.end() ||
+        (force_basic_attestation != config.end() &&
+         force_basic_attestation->second == "1")) {
       const auto &product =
           product_model != config.end() ? product_model : product_device;
       auto pi = (prop_info *)__system_property_find("ro.build.version.release");
@@ -335,8 +342,9 @@ int main(int argc, char *argv[]) {
                         product_first_api_level->second.c_str());
       property_override("ro.vendor.api_level",
                         product_first_api_level->second.c_str());
-    } else if (force_basic_attestation != config.end() &&
-               force_basic_attestation->second == "1") {
+    } else if (force_basic_attestation == config.end() ||
+               (force_basic_attestation != config.end() &&
+                force_basic_attestation->second == "1")) {
       auto pi =
           (prop_info *)__system_property_find("ro.product.first_api_level");
       if (pi != nullptr) {

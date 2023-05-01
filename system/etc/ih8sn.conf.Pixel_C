@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=google/ryu/dragon:6.0.1/MXC89L/3084571:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Pixel C

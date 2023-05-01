@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=google/mantaray/manta:5.1.1/LMY49J/2640980:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Nexus 10

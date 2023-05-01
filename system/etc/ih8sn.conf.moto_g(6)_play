@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=motorola/jeter_sprint/jeter:8.0.0/OCP27.91-23/23:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=moto g(6) play

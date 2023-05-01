@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=xiaomi/tissot/tissot_sprout:7.1.2/N2G47H/7.12.19:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Mi A1

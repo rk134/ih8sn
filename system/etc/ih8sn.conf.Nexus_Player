@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=google/fugu/fugu:5.0/LRX21V/1586762:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Nexus Player

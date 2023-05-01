@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=google/volantis/flounder:5.0/LRX21R/1573874:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Nexus 9

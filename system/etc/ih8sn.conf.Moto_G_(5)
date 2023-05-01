@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=motorola/cedric/cedric:7.0/NPPS25.137-15-11/11:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=Moto G (5)

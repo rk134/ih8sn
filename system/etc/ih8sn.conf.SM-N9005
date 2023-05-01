@@ -1,5 +1,2 @@
 BUILD_FINGERPRINT=samsung/hltezh/hlte:5.0/LRX21V/N9005ZSUGPJ2:user/release-keys
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
 PRODUCT_MODEL=SM-N9005
