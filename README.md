@@ -70,6 +70,18 @@ PRODUCT_NAME=OnePlus7Pro
 VENDOR_SECURITY_PATCH_DATE=2019-09-05
 ```
 
+- An example config of marlin that can be used
+```
+BUILD_FINGERPRINT=google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys
+MANUFACTURER_NAME=Google
+PRODUCT_BRAND=google
+PRODUCT_DEVICE=marlin
+PRODUCT_MODEL=Pixel XL
+PRODUCT_NAME=marlin
+```
+
+- Default values will be set even if its not set. or its commented in the config, Set it if you want to override that.
+
 Default values:
 ```
 BUILD_TAGS=release-keys
@@ -77,8 +89,6 @@ BUILD_TYPE=user
 DEBUGGABLE=0
 FORCE_BASIC_ATTESTATION=1
 ```
-
-- Default values will be set even if its not set. or its commented in the config, Set it if you want to override that.
 - Note that if you set FORCE_BASIC_ATTESTATION=1, this will also copy patched `libkeystore-attestation-application-id.so` to your system. Patch can be found [here](patches)
 
 Notes:
