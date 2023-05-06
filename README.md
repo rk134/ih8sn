@@ -12,44 +12,49 @@
 - The developers cannot be held liable in any way for the use of this tool.
 ```
 
-# Inline building
+# Inline building.
 
-### 1: Clone ih8sn repo
+### 1: Clone ih8sn repo.
+
 ```
 git clone https://github.com/sdm870/ih8sn ih8sn
 ```
 
-### 2: Include makefile
+### 2: Include makefile.
+
 ```
 $(call inherit-product-if-exists, ih8sn/product.mk)
 ```
 
-### 3: Apply patches
+### 3: Apply patches.
+
 ```
 curl https://raw.githubusercontent.com/althafvly/ih8sn/master/patch.sh | bash
 ```
 
-## Requirements for recovery/adb root
+## Requirements for recovery/adb root.
 
 - Android platform tools
 - Android device
 
 # Installation
 
-## 1: Download ih8sn
+## 1: Download ih8sn.
 
 Check the "Releases" section on the right. Make sure to download correct zip for your device `<arch>`.
 
 - aarch64 = arm64
 - armv7a = arm
 
-## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model>
+## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model> else create new.
+
 - If your device isn't available in the list then follow below steps to create ih8sn config for your device.
 - If your model has spaces, then it must be replaced with underscore.
 
-### Configure ih8sn.conf for your device
+### Configure ih8sn.conf for your device.
+
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
-Example:
+  Example:
 
 ```
 BUILD_DESCRIPTION=OnePlus7Pro-user 10 QKQ1.190716.003 1910071200 release-keys
@@ -70,7 +75,17 @@ PRODUCT_NAME=OnePlus7Pro
 VENDOR_SECURITY_PATCH_DATE=2019-09-05
 ```
 
+Default values:
+
+```
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
+FORCE_BASIC_ATTESTATION=1
+```
+
 - An example config of marlin that can be used
+
 ```
 BUILD_FINGERPRINT=google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys
 MANUFACTURER_NAME=Google
@@ -80,61 +95,51 @@ PRODUCT_MODEL=Pixel XL
 PRODUCT_NAME=marlin
 ```
 
-- Default values will be set even if its not set. or its commented in the config, Set it if you want to override that.
-
-Default values:
-```
-BUILD_TAGS=release-keys
-BUILD_TYPE=user
-DEBUGGABLE=0
-FORCE_BASIC_ATTESTATION=1
-```
-- Note that if you set FORCE_BASIC_ATTESTATION=1, this will also copy patched `libkeystore-attestation-application-id.so` to your system. Patch can be found [here](patches)
-
 Notes:
+
+- If you set FORCE_BASIC_ATTESTATION=1, Patched `libkeystore-attestation-application-id.so` will also copied to your system. Patch can be found [here](patches)
+- Default values will be set even if its not set. or its commented in the config, Set it if you want to override that.
 - Use # or remove it from config to disable spoofing that property.
 - You don't need to spoof all the properties.
 
-## 3: Push the files to your device
+## 3: Push the files to your device.
 
-#### 1. ADB root
+#### 1. ADB root.
 
 - Extract ih8sn-`<arch>`.zip in your PC.
-- Enable usb debugging and rooted debugging in developer options in your phone. 
+- Enable usb debugging and rooted debugging in developer options in your phone.
 
 Run the script according to your system.
 
-Windows (Install):
-```
-.\push.ps1
-```
-Windows (Uninstall):
-```
-.\uninstall.ps1
-```
 Linux (Install) :
+
 ```
 ./push.sh
 ```
+
 Linux (Uninstall) :
+
 ```
 ./uninstall.sh
 ```
 
-#### 2. Recovery method
+#### 2. Recovery method.
 
 - Reboot to recovery and select Apply update -> Apply from ADB
 - Run this in terminal to install.
+
 ```
 adb sideload ih8sn-<arch>.zip
 ```
 
 To uninstall.
+
 ```
 adb sideload ih8sn-uninstaller.zip
 ```
 
-## 4: Reboot your device 
+## 4: Reboot your device.
 
-## Notes: 
+## Notes:
+
 - Spoofing stays in ota updates (except libkeystore-attestation-application-id.so) if the rom supports it.
