@@ -5,12 +5,12 @@
 # Set USE_REMOUNT flag if "--use_remount" option is provided
 while getopts ":-:" o; do
     case "${OPTARG}" in
-        reboot)
-            REBOOT=1
-            ;;
-        use_remount)
-            USE_REMOUNT=1
-            ;;
+    reboot)
+        REBOOT=1
+        ;;
+    use_remount)
+        USE_REMOUNT=1
+        ;;
     esac
 done
 
