@@ -66,8 +66,10 @@ else
     libdir=lib
 fi
 
-if [[ -f "system/$libdir/$sdk_version/$libkeystore" ]] && grep -q '^FORCE_BASIC_ATTESTATION=1$' "$CONFIG"; then
-    adb wait-for-device push "system/$libdir/$sdk_version/$libkeystore" /system/$libdir/
+if [[ -f "system/$libdir/$sdk_version/$libkeystore" ]]; then
+    if $(grep -q '^FORCE_BASIC_ATTESTATION=1' "$CONFIG") || ! $(grep -q '^FORCE_BASIC_ATTESTATION=0' "$CONFIG"); then
+        adb wait-for-device push "system/$libdir/$sdk_version/$libkeystore" /system/$libdir/
+    fi
 fi
 
 # Reboot the device if REBOOT
