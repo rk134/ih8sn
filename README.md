@@ -29,7 +29,7 @@ $(call inherit-product-if-exists, ih8sn/product.mk)
 ### 3: Apply patches.
 
 ```
-curl https://raw.githubusercontent.com/althafvly/ih8sn/master/patch.sh | bash
+curl https://raw.githubusercontent.com/althafvly/ih8sn/master/patches/patch.sh | bash
 ```
 
 ## Requirements for recovery/adb root.
