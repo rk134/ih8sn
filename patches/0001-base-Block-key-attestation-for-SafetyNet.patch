@@ -1,4 +1,4 @@
-From a316ec51c2ad6f66abbfaf6e18e6c1541f0ce097 Mon Sep 17 00:00:00 2001
+From 66025d6373c13c0df07c0d7d04e823c8ac17c97a Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:59:51 -0700
 Subject: [PATCH] base: Block key attestation for SafetyNet
@@ -41,11 +41,15 @@ to it aswell
 Test: Device Integrity and Basic Integrity passes.
 
 Change-Id: Id607cdff0b902f285a6c1b769c0a4ee4202842b1
+
+base: Use dipper fp
+
+Change-Id: Ied4fd2c5d9ae47e6670825d75994e31b4d7ac5b2
 ---
- core/java/android/app/Instrumentation.java    |  4 ++
- .../internal/gmscompat/AttestationHooks.java  | 59 +++++++++++++++++++
+ core/java/android/app/Instrumentation.java    |  4 +
+ .../internal/gmscompat/AttestationHooks.java  | 78 +++++++++++++++++++
  .../keystore2/AndroidKeyStoreSpi.java         |  3 +
- 3 files changed, 66 insertions(+)
+ 3 files changed, 85 insertions(+)
  create mode 100644 core/java/com/android/internal/gmscompat/AttestationHooks.java
 
 diff --git a/core/java/android/app/Instrumentation.java b/core/java/android/app/Instrumentation.java
@@ -79,10 +83,10 @@ index 556058b567f9..44449588bbab 100644
  
 diff --git a/core/java/com/android/internal/gmscompat/AttestationHooks.java b/core/java/com/android/internal/gmscompat/AttestationHooks.java
 new file mode 100644
-index 000000000000..1cf2999f1518
+index 000000000000..93f996964855
 --- /dev/null
 +++ b/core/java/com/android/internal/gmscompat/AttestationHooks.java
-@@ -0,0 +1,59 @@
+@@ -0,0 +1,78 @@
 +/*
 + * Copyright (C) 2021 The Android Open Source Project
 + *
@@ -102,8 +106,10 @@ index 000000000000..1cf2999f1518
 +package com.android.internal.gmscompat;
 +
 +import android.app.Application;
++import android.os.Build;
 +import android.util.Log;
 +
++import java.lang.reflect.Field;
 +import java.util.Arrays;
 +
 +/** @hide */
@@ -118,10 +124,27 @@ index 000000000000..1cf2999f1518
 +
 +    private AttestationHooks() { }
 +
++    private static void setBuildField(String key, String value) {
++        try {
++            // Unlock
++            Field field = Build.class.getDeclaredField(key);
++            field.setAccessible(true);
++
++            // Edit
++            field.set(null, value);
++
++            // Lock
++            field.setAccessible(false);
++        } catch (NoSuchFieldException | IllegalAccessException e) {
++            Log.e(TAG, "Failed to spoof Build." + key, e);
++        }
++    }
++
 +    public static void initApplicationBeforeOnCreate(Application app) {
 +        if (PACKAGE_GMS.equals(app.getPackageName()) &&
 +                PROCESS_UNSTABLE.equals(Application.getProcessName())) {
 +            sIsGms = true;
++            setBuildField("FINGERPRINT", "Xiaomi/dipper/dipper:8.1.0/OPM1.171019.011/V9.5.5.0.OEAMIFA:user/release-keys");
 +        }
 +
 +        if (PACKAGE_FINSKY.equals(app.getPackageName())) {
