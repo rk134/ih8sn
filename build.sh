@@ -3,22 +3,24 @@
 set -e
 
 folder=$(dirname -- "$(readlink -f -- "$0")")
+arch="$1"
 files="system push.sh"
+tmp_dir="$folder/tmp"
 script_dir="META-INF/com/google/android/"
-zip_name="ih8sn-$1.zip"
+zip_name="ih8sn-$arch.zip"
 bin_out="$folder/system/bin"
 
-if [ -z "$1" ]; then
+if [ -z "$arch" ]; then
     $folder/$0 armv7a
     $folder/$0 aarch64
     $folder/$0 uninstall
     exit 0
-elif [[ ! "aarch64 armv7a i686 x86_64 uninstall" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
-    echo "Unknown type $1"
-    exit 0
+elif [ -z "$arch" ] || ! [[ "$arch" =~ ^(armv7a|aarch64|i686|x86_64|uninstall)$ ]]; then
+    echo "Unknown or missing architecture: $arch"
+    exit 1
 fi
 
-mkdir -p $bin_out $folder/tmp/$script_dir
+mkdir -p "$bin_out" "$tmp_dir/$script_dir"
 
 ndk_version=r25c
 
@@ -33,16 +35,21 @@ fi
 
 export PATH=${PATH}:$folder/android-ndk-$ndk_version/toolchains/llvm/prebuilt/linux-x86_64/bin
 
-echo "Building ih8sn archive for $1"
-if [ $1 '==' "armv7a" ]; then
-    CXX=${CXX:-armv7a-linux-androideabi33-clang++}
-elif [ $1 '==' "aarch64" ]; then
-    CXX=${CXX:-aarch64-linux-android33-clang++}
-elif [ $1 '==' "i686" ]; then
-    CXX=${CXX:-i686-linux-android33-clang++}
-elif [ $1 '==' "x86_64" ]; then
-    CXX=${CXX:-x86_64-linux-android33-clang++}
-fi
+echo "Building ih8sn archive for $arch"
+case "$arch" in
+    "armv7a")
+        CXX=${CXX:-armv7a-linux-androideabi33-clang++}
+        ;;
+    "aarch64")
+        CXX=${CXX:-aarch64-linux-android33-clang++}
+        ;;
+    "i686")
+        CXX=${CXX:-i686-linux-android33-clang++}
+        ;;
+    "x86_64")
+        CXX=${CXX:-x86_64-linux-android33-clang++}
+        ;;
+esac
 
 if [ ! -z "$CXX" ]; then
     ${CXX} \
@@ -64,24 +71,22 @@ if [ ! -z "$CXX" ]; then
         main.cpp \
         -static \
         -std=c++17 \
-        -o $bin_out/ih8sn
+        -o "$bin_out/ih8sn"
 fi
 
-cp $folder/scripts/updater-script $folder/tmp/$script_dir/updater-script
-cp $folder/scripts/update-binary $folder/tmp/$script_dir/update-binary
+cp "$folder/scripts/updater-script" "$tmp_dir/$script_dir/updater-script"
+cp "$folder/scripts/update-binary" "$tmp_dir/$script_dir/update-binary"
 
-if [ $1 == "uninstall" ]; then
-    cat $folder/scripts/update-binary_uninstall >>$folder/tmp/$script_dir/update-binary
+if [ "$arch" == "uninstall" ]; then
+    cat "$folder/scripts/update-binary_uninstall" >>"$tmp_dir/$script_dir/update-binary"
     zip_name="ih8sn-uninstaller.zip"
-    cp -r uninstall.sh $folder/tmp/
+    cp -r uninstall.sh "$tmp_dir/"
 else
-    cp -r $files $folder/tmp/
-    cat $folder/scripts/update-binary_install >>$folder/tmp/$script_dir/update-binary
+    cp -r $files "$tmp_dir/"
+    cat "$folder/scripts/update-binary_install" >>"$tmp_dir/$script_dir/update-binary"
 fi
 
-cd $folder/tmp
-zip -q -r $folder/$zip_name *
+cd "$tmp_dir"
+zip -q -r "$folder/$zip_name" *
 
-if [ -d $folder/tmp ]; then
-    rm -rf $folder/tmp
-fi
+rm -rf "$tmp_dir"
