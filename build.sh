@@ -4,11 +4,19 @@ set -e
 
 folder=$(dirname -- "$(readlink -f -- "$0")")
 arch="$1"
-files="system push.sh"
 tmp_dir="$folder/tmp"
 script_dir="META-INF/com/google/android/"
 zip_name="ih8sn-$arch.zip"
 bin_out="$folder/system/bin"
+ndk_version=android-ndk-r25c
+nkd_download_link="https://dl.google.com/android/repository/$ndk_version-linux.zip"
+
+declare -A toolchain=(
+    ["armv7a"]="armv7a-linux-androideabi33-clang++"
+    ["aarch64"]="aarch64-linux-android33-clang++"
+    ["i686"]="i686-linux-android33-clang++"
+    ["x86_64"]="x86_64-linux-android33-clang++"
+)
 
 if [ -z "$arch" ]; then
     $folder/$0 armv7a
@@ -20,39 +28,22 @@ elif [ -z "$arch" ] || ! [[ "$arch" =~ ^(armv7a|aarch64|i686|x86_64|uninstall)$ 
     exit 1
 fi
 
-mkdir -p "$bin_out" "$tmp_dir/$script_dir"
-
-ndk_version=r25c
-
-if [ ! -d android-ndk-$ndk_version ]; then
-    if [ ! -f android-ndk-$ndk_version-linux.zip ]; then
+if [ ! -d $ndk_version ]; then
+    if [ ! -f $ndk_version-linux.zip ]; then
         echo "Downloading Android NDK"
-        wget -q --show-progress https://dl.google.com/android/repository/android-ndk-$ndk_version-linux.zip
+        wget -q --show-progress $nkd_download_link
     fi
     echo "Extracting Android NDK"
-    unzip -q android-ndk-$ndk_version-linux.zip
+    unzip -q $ndk_version-linux.zip
 fi
 
-export PATH=${PATH}:$folder/android-ndk-$ndk_version/toolchains/llvm/prebuilt/linux-x86_64/bin
+export PATH=${PATH}:$folder/$ndk_version/toolchains/llvm/prebuilt/linux-x86_64/bin
+
+mkdir -p "$bin_out" "$tmp_dir/$script_dir"
 
 echo "Building ih8sn archive for $arch"
-case "$arch" in
-    "armv7a")
-        CXX=${CXX:-armv7a-linux-androideabi33-clang++}
-        ;;
-    "aarch64")
-        CXX=${CXX:-aarch64-linux-android33-clang++}
-        ;;
-    "i686")
-        CXX=${CXX:-i686-linux-android33-clang++}
-        ;;
-    "x86_64")
-        CXX=${CXX:-x86_64-linux-android33-clang++}
-        ;;
-esac
-
-if [ ! -z "$CXX" ]; then
-    ${CXX} \
+if [[ "$arch" =~ ^(armv7a|aarch64|i686|x86_64)$ ]]; then
+    ${toolchain[$arch]} \
         -Iaosp/bionic/libc \
         -Iaosp/bionic/libc/async_safe/include \
         -Iaosp/bionic/libc/system_properties/include \
@@ -82,7 +73,7 @@ if [ "$arch" == "uninstall" ]; then
     zip_name="ih8sn-uninstaller.zip"
     cp -r uninstall.sh "$tmp_dir/"
 else
-    cp -r $files "$tmp_dir/"
+    cp -r system push.sh "$tmp_dir/"
     cat "$folder/scripts/update-binary_install" >>"$tmp_dir/$script_dir/update-binary"
 fi
 
