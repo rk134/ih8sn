@@ -84,7 +84,7 @@ DEBUGGABLE=0
 FORCE_BASIC_ATTESTATION=1
 ```
 
-- An example config of marlin that can be used
+- Example configs of marlin and dipper
 
 ```
 BUILD_FINGERPRINT=google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys
@@ -93,6 +93,10 @@ PRODUCT_BRAND=google
 PRODUCT_DEVICE=marlin
 PRODUCT_MODEL=Pixel XL
 PRODUCT_NAME=marlin
+```
+
+```
+BUILD_FINGERPRINT=Xiaomi/dipper/dipper:8.1.0/OPM1.171019.011/V9.5.5.0.OEAMIFA:user/release-keys
 ```
 
 Notes:
