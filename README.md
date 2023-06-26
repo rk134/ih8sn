@@ -146,4 +146,4 @@ adb sideload ih8sn-uninstaller.zip
 
 ## Notes:
 
-- Spoofing stays in ota updates (except libkeystore-attestation-application-id.so) if the rom supports it.
+- Spoofing doesn't stay in OTA updates on Android 12.1+ roms.
