@@ -14,6 +14,8 @@ cat <<EOF
 bin/props
 etc/props.conf
 etc/init/props.rc
+lib/libkeystore-attestation-application-id.so
+lib64/libkeystore-attestation-application-id.so
 EOF
 }
 

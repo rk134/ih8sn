@@ -143,7 +143,3 @@ adb sideload ih8sn-uninstaller.zip
 ```
 
 ## 4: Reboot your device.
-
-## Notes:
-
-- Spoofing doesn't stay in OTA updates on Android 12.1+ roms.
