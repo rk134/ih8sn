@@ -1,5 +1,8 @@
 # Remove ih8sn config and executables
-if [ $(find ${SYSTEM_MNT}/system -name "*ih8sn*" | wc -l) -gt 0 ]; then
+if [ $(find ${SYSTEM_MNT}/system -name "*props*" | wc -l) -gt 0 ]; then
+    ui_print "Removing existing ih8sn files"
+    find ${SYSTEM_MNT}/system -name *props* -delete
+elif [ $(find ${SYSTEM_MNT}/system -name "*ih8sn*" | wc -l) -gt 0 ]; then
     ui_print "Removing existing ih8sn files"
     find ${SYSTEM_MNT}/system -name *ih8sn* -delete
 else

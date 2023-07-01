@@ -62,7 +62,7 @@ if [[ "$arch" =~ ^(armv7a|aarch64|i686|x86_64)$ ]]; then
         main.cpp \
         -static \
         -std=c++17 \
-        -o "$bin_out/ih8sn"
+        -o "$bin_out/props"
 fi
 
 cp "$folder/scripts/updater-script" "$tmp_dir/$script_dir/updater-script"

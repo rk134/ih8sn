@@ -31,9 +31,9 @@ else
 fi
 
 # Push necessary files to the device
-adb wait-for-device push system/addon.d/60-ih8sn.sh /system/addon.d/
-adb wait-for-device push system/bin/ih8sn /system/bin/
-adb wait-for-device push system/etc/init/ih8sn.rc /system/etc/init/
+adb wait-for-device push system/addon.d/60-props.sh /system/addon.d/
+adb wait-for-device push system/bin/props /system/bin/
+adb wait-for-device push system/etc/init/props.rc /system/etc/init/
 
 # Get device information
 MODEL=$(adb shell getprop ro.product.model | tr ' ' '_' | sed 's/_*$//')
@@ -54,7 +54,7 @@ else
 fi
 
 # Push the configuration file to the device
-adb wait-for-device push "$CONFIG" /system/etc/ih8sn.conf
+adb wait-for-device push "$CONFIG" /system/etc/props.conf
 
 # Get SDK version, determine architecture, and push libkeystore-attestation-application-id.so file to the device if necessary
 sdk_version=$(adb shell getprop ro.build.version.sdk)
