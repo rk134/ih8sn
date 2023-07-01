@@ -17,7 +17,7 @@
 ### 1: Clone ih8sn repo.
 
 ```
-git clone https://github.com/sdm870/ih8sn ih8sn
+git clone https://github.com/althafvly/ih8sn ih8sn
 ```
 
 ### 2: Include makefile.
