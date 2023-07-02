@@ -40,7 +40,7 @@ MODEL=$(adb shell getprop ro.product.model | tr ' ' '_' | sed 's/_*$//')
 SERIALNO=$(adb shell getprop ro.boot.serialno | tr ' ' '_' | sed 's/_*$//')
 PRODUCT=$(adb shell getprop ro.build.product | tr ' ' '_' | sed 's/_*$//')
 
-DEFAULT_CONFIG=system/etc/ih8sn.conf
+DEFAULT_CONFIG=system/etc/props.conf
 
 # Check if device-specific configuration file exists, otherwise use default configuration file
 if [[ -f "$DEFAULT_CONFIG.${MODEL}" ]]; then
