@@ -113,15 +113,3 @@ if mount -o rw "$SYSTEM_BLOCK" "$SYSTEM_MNT"; then
 else
     error_mounting "$SYSTEM_MNT"
 fi
-
-# Compute storage requirements
-SYSTEM_STORAGE=$(df $SYSTEM_MNT | tail -1 | tr -s ' ' | cut -d ' ' -f4)
-STORAGE_BUFFER=10240
-
-compute_ih8sn_space
-if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-    compute_ih8sn_space
-    if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-        error_no_space
-    fi
-fi

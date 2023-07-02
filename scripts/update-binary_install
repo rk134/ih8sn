@@ -1,3 +1,15 @@
+# Compute storage requirements
+SYSTEM_STORAGE=$(df $SYSTEM_MNT | tail -1 | tr -s ' ' | cut -d ' ' -f4)
+STORAGE_BUFFER=10240
+
+compute_ih8sn_space
+if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
+    compute_ih8sn_space
+    if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
+        error_no_space
+    fi
+fi
+
 # Set ih8sn config
 MODEL=$(getprop ro.product.model | tr ' ' '_' | sed 's/_*$//')
 SERIALNO=$(getprop ro.boot.serialno | tr ' ' '_' | sed 's/_*$//')
