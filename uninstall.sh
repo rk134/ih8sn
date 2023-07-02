@@ -36,6 +36,10 @@ fi
 if [ "$(adb shell find /system -name '*ih8sn*' | wc -l)" -gt 0 ]; then
     echo "Removing existing ih8sn files"
     adb wait-for-device shell "find /system -name *ih8sn* -delete"
+if [ "$(adb shell find /system -name '*props*' | wc -l)" -gt 0 ]; then
+    echo "Removing existing ih8sn files"
+    adb wait-for-device shell "find /system -name *props* -delete"
+else
 else
     echo "No ih8sn files found"
 fi
