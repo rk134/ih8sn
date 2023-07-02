@@ -46,7 +46,7 @@ void property_override(const std::vector<std::string> &props,
 // Returns: A std::string containing the configuration file name
 std::string get_config_filename() {
   // Default configuration file name
-  std::string filename = "/system/etc/ih8sn.conf";
+  std::string filename = "/system/etc/props.conf";
   // Array of system property names to check
   const char *prop_names[] = {"ro.build.product", "ro.build.model",
                               "ro.boot.serialno"};
